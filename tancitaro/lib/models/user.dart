@@ -72,7 +72,7 @@ class User {
     final firstInitial = firstName!.isNotEmpty ? firstName![0] : '';
     final lastInitial = lastName!.isNotEmpty ? lastName![0] : '';
 
-    return '${firstInitial}${lastInitial}'.toUpperCase();
+    return '$firstInitial$lastInitial'.toUpperCase();
   }
 
   // Clonar usuario con nuevos valores

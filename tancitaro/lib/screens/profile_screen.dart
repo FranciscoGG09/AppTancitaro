@@ -4,6 +4,8 @@ import 'package:email_validator/email_validator.dart';
 import '../services/auth_service.dart';
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -54,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Perfil actualizado exitosamente'),
             backgroundColor: Colors.green,
           ),
@@ -62,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         setState(() => _isEditing = false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Error al actualizar el perfil'),
             backgroundColor: Colors.red,
           ),
@@ -75,12 +77,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Cerrar Sesión'),
-        content: Text('¿Estás seguro de que quieres cerrar sesión?'),
+        title: const Text('Cerrar Sesión'),
+        content: const Text('¿Estás seguro de que quieres cerrar sesión?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancelar'),
+            child: const Text('Cancelar'),
           ),
           TextButton(
             onPressed: () async {
@@ -91,7 +93,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Navigator.pushNamedAndRemoveUntil(
                   context, '/login', (route) => false);
             },
-            child: Text('Cerrar Sesión', style: TextStyle(color: Colors.red)),
+            child: const Text('Cerrar Sesión',
+                style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -105,7 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             // Header del perfil
@@ -118,32 +121,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     CircleAvatar(
                       radius: 50,
                       backgroundColor: Colors.blue[100],
-                      child: Icon(
+                      child: const Icon(
                         Icons.person,
                         size: 50,
                         color: Colors.blue,
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
                       user?.fullName ?? 'Usuario',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Text(
                       user?.phone ?? '',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                      style: const TextStyle(fontSize: 16, color: Colors.grey),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     if (user?.email != null)
                       Text(
                         user!.email!,
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                        style:
+                            const TextStyle(fontSize: 16, color: Colors.grey),
                       ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -155,7 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ? Colors.green
                               : Colors.orange,
                         ),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Text(
                           authService.isProfileComplete
                               ? 'Perfil completo'
@@ -173,7 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Formulario de edición
             Card(
@@ -188,7 +192,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Información Personal',
                             style: TextStyle(
                               fontSize: 18,
@@ -199,17 +203,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             IconButton(
                               onPressed: () =>
                                   setState(() => _isEditing = true),
-                              icon: Icon(Icons.edit),
+                              icon: const Icon(Icons.edit),
                               tooltip: 'Editar perfil',
                             ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
                       // Nombre
                       TextFormField(
                         controller: _firstNameController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Nombre(s)*',
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.person),
@@ -222,12 +226,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
 
                       // Apellidos
                       TextFormField(
                         controller: _lastNameController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Apellidos*',
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.person_outline),
@@ -240,24 +244,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
 
                       // Teléfono (no editable)
                       TextFormField(
                         controller: _phoneController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Teléfono',
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.phone),
                         ),
                         readOnly: true,
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
 
                       // Correo electrónico
                       TextFormField(
                         controller: _emailController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Correo electrónico*',
                           border: OutlineInputBorder(),
                           suffixIcon: Icon(Icons.email),
@@ -278,7 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
 
                       if (_isEditing) ...[
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Row(
                           children: [
                             Expanded(
@@ -287,17 +291,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   setState(() => _isEditing = false);
                                   _loadProfile(); // Recargar datos originales
                                 },
-                                child: Text('Cancelar'),
+                                child: const Text('Cancelar'),
                               ),
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Expanded(
                               child: ElevatedButton(
                                 onPressed: _isLoading ? null : _saveProfile,
                                 child: _isLoading
-                                    ? CircularProgressIndicator(
+                                    ? const CircularProgressIndicator(
                                         color: Colors.white)
-                                    : Text('Guardar'),
+                                    : const Text('Guardar'),
                               ),
                             ),
                           ],
@@ -308,13 +312,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Información importante
-            Card(
+            const Card(
               elevation: 3,
               child: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -346,23 +350,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Botón de cerrar sesión
             SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(
                 onPressed: _logout,
-                icon: Icon(Icons.logout),
-                label: Text('Cerrar Sesión'),
+                icon: const Icon(Icons.logout),
+                label: const Text('Cerrar Sesión'),
                 style: OutlinedButton.styleFrom(
                   foregroundColor: Colors.red,
-                  side: BorderSide(color: Colors.red),
-                  padding: EdgeInsets.symmetric(vertical: 15),
+                  side: const BorderSide(color: Colors.red),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
                 ),
               ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
           ],
         ),
       ),

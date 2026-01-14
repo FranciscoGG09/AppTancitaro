@@ -10,6 +10,8 @@ import '../services/database_service.dart';
 import '../services/auth_service.dart';
 
 class CreateReportScreen extends StatefulWidget {
+  const CreateReportScreen({super.key});
+
   @override
   _CreateReportScreenState createState() => _CreateReportScreenState();
 }
@@ -25,7 +27,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
   bool _isLoading = false;
   bool _isSubmitting = false;
 
-  final List<String> _categories = [
+  static const List<String> _categories = [
     'Obras Públicas',
     'Seguridad',
     'Servicios Municipales',
@@ -37,7 +39,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
   ];
 
   final ImagePicker _picker = ImagePicker();
-  final Uuid _uuid = Uuid();
+  final Uuid _uuid = const Uuid();
 
   @override
   void initState() {
@@ -59,8 +61,8 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: Text('Perfil Incompleto'),
-        content: Text(
+        title: const Text('Perfil Incompleto'),
+        content: const Text(
           'Debes completar tu perfil (nombre, apellidos, teléfono, correo) '
           'para poder subir reportes.',
         ),
@@ -70,7 +72,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
               Navigator.pop(context);
               Navigator.pushNamed(context, '/profile');
             },
-            child: Text('Completar Perfil'),
+            child: const Text('Completar Perfil'),
           ),
         ],
       ),
@@ -137,13 +139,13 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
     if (!_formKey.currentState!.validate()) return;
     if (_image == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Debes tomar una foto primero')),
+        const SnackBar(content: Text('Debes tomar una foto primero')),
       );
       return;
     }
     if (_location == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No se pudo obtener la ubicación')),
+        const SnackBar(content: Text('No se pudo obtener la ubicación')),
       );
       return;
     }
@@ -176,7 +178,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
         await _sendEmailToDepartment(report);
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Reporte enviado exitosamente'),
             backgroundColor: Colors.green,
           ),
@@ -188,7 +190,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
         await databaseService.saveOfflineReport(report);
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text(
                 'Reporte guardado localmente. Se enviará cuando haya conexión.'),
             backgroundColor: Colors.orange,
@@ -268,22 +270,22 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.warning, size: 64, color: Colors.orange),
-            SizedBox(height: 20),
-            Text(
+            const Icon(Icons.warning, size: 64, color: Colors.orange),
+            const SizedBox(height: 20),
+            const Text(
               'Perfil Incompleto',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Completa tu perfil para poder\nsubir reportes',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, '/profile'),
-              child: Text('Completar Perfil'),
+              child: const Text('Completar Perfil'),
             ),
           ],
         ),
@@ -291,7 +293,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
     }
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Form(
         key: _formKey,
         child: Column(
@@ -304,7 +306,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    const Row(
                       children: [
                         Icon(Icons.camera_alt, color: Colors.blue),
                         SizedBox(width: 10),
@@ -317,15 +319,15 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Center(
                       child: _image == null
                           ? ElevatedButton.icon(
                               onPressed: _takePicture,
-                              icon: Icon(Icons.camera_alt),
-                              label: Text('Tomar Foto'),
+                              icon: const Icon(Icons.camera_alt),
+                              label: const Text('Tomar Foto'),
                               style: ElevatedButton.styleFrom(
-                                minimumSize: Size(200, 50),
+                                minimumSize: const Size(200, 50),
                               ),
                             )
                           : Column(
@@ -336,27 +338,27 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                                   width: double.infinity,
                                   fit: BoxFit.cover,
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 TextButton(
                                   onPressed: _takePicture,
-                                  child: Text('Tomar otra foto'),
+                                  child: const Text('Tomar otra foto'),
                                 ),
                               ],
                             ),
                     ),
                     if (_isLoading) ...[
-                      SizedBox(height: 10),
-                      LinearProgressIndicator(),
-                      SizedBox(height: 10),
-                      Text(
+                      const SizedBox(height: 10),
+                      const LinearProgressIndicator(),
+                      const SizedBox(height: 10),
+                      const Text(
                         'Obteniendo ubicación...',
                         textAlign: TextAlign.center,
                         style: TextStyle(color: Colors.grey),
                       ),
                     ],
                     if (_location != null) ...[
-                      SizedBox(height: 10),
-                      Row(
+                      const SizedBox(height: 10),
+                      const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.location_on,
@@ -373,7 +375,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Paso 2: Información del reporte
             Card(
@@ -382,7 +384,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    const Row(
                       children: [
                         Icon(Icons.description, color: Colors.blue),
                         SizedBox(width: 10),
@@ -395,12 +397,12 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // Categoría
                     DropdownButtonFormField<String>(
                       value: _selectedCategory,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Dirección/Departamento*',
                         border: OutlineInputBorder(),
                       ),
@@ -420,12 +422,12 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // Título
                     TextFormField(
                       controller: _titleController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Título del Reporte*',
                         border: OutlineInputBorder(),
                       ),
@@ -437,12 +439,12 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
                     // Descripción
                     TextFormField(
                       controller: _descriptionController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Descripción detallada*',
                         border: OutlineInputBorder(),
                         alignLabelWithHint: true,
@@ -463,7 +465,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Paso 3: Vista previa y envío
             if (_image != null && _selectedCategory != null)
@@ -473,7 +475,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
+                      const Row(
                         children: [
                           Icon(Icons.preview, color: Colors.blue),
                           SizedBox(width: 10),
@@ -486,11 +488,11 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
                       // Vista previa
                       Container(
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey[300]!),
                           borderRadius: BorderRadius.circular(8),
@@ -505,7 +507,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                                 color: Colors.blue[900],
                               ),
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Text('Categoría: $_selectedCategory'),
                             if (_titleController.text.isNotEmpty)
                               Text('Título: ${_titleController.text}'),
@@ -517,7 +519,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                                 'Ubicación: ${_location!.latitude.toStringAsFixed(6)}, '
                                 '${_location!.longitude.toStringAsFixed(6)}',
                               ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             if (_image != null)
                               Image.file(
                                 _image!,
@@ -527,7 +529,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
                       // Botón de envío
                       SizedBox(
@@ -536,7 +538,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                         child: ElevatedButton.icon(
                           onPressed: _isSubmitting ? null : _submitReport,
                           icon: _isSubmitting
-                              ? SizedBox(
+                              ? const SizedBox(
                                   width: 20,
                                   height: 20,
                                   child: CircularProgressIndicator(
@@ -544,10 +546,10 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                                     strokeWidth: 2,
                                   ),
                                 )
-                              : Icon(Icons.send),
+                              : const Icon(Icons.send),
                           label: _isSubmitting
-                              ? Text('ENVIANDO...')
-                              : Text('ENVIAR REPORTE'),
+                              ? const Text('ENVIANDO...')
+                              : const Text('ENVIAR REPORTE'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
                           ),
@@ -557,7 +559,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
                   ),
                 ),
               ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
           ],
         ),
       ),

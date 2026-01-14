@@ -25,7 +25,7 @@ class Report {
     required this.createdAt,
     this.syncedAt,
     this.isSynced = false,
-  }) : id = id ?? Uuid().v4();
+  }) : id = id ?? const Uuid().v4();
 
   // Convertir a Map para la base de datos
   Map<String, dynamic> toMap() {

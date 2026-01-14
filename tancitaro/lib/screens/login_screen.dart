@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
+import 'home_screen.dart';
+import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -23,14 +27,14 @@ class _LoginScreenState extends State<LoginScreen> {
             key: _formKey,
             child: Column(
               children: [
-                SizedBox(height: 60),
+                const SizedBox(height: 60),
                 // Logo del gobierno municipal
                 Image.asset(
                   'assets/logo_municipal.png',
                   width: 150,
                   height: 150,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   'Gobierno Municipal de Tancítaro',
                   style: TextStyle(
@@ -39,12 +43,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Colors.blue[900],
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   'Sistema Integrado de Gestión',
                   style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
 
                 // Campo de teléfono
                 TextFormField(
@@ -52,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     labelText: 'Número de teléfono',
-                    prefixIcon: Icon(Icons.phone),
+                    prefixIcon: const Icon(Icons.phone),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -67,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 // Campo de contraseña
                 TextFormField(
@@ -75,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Contraseña',
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: const Icon(Icons.lock),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -90,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
 
                 // Botón de iniciar sesión
                 SizedBox(
@@ -98,26 +102,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: _isLoading ? null : _login,
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                     child: _isLoading
                         ? CircularProgressIndicator(color: Colors.white)
                         : Text(
                             'INICIAR SESIÓN',
                             style: TextStyle(fontSize: 16),
                           ),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 // Enlace a registro
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('¿No tienes cuenta? '),
+                    const Text('¿No tienes cuenta? '),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
@@ -127,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         'Regístrate aquí',
                         style: TextStyle(
                           color: Colors.blue,
@@ -177,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content:
                 Text('Error al iniciar sesión. Verifica tus credenciales.'),
             backgroundColor: Colors.red,

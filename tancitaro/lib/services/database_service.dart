@@ -91,7 +91,7 @@ class DatabaseService {
   // Eliminar reportes sincronizados antiguos
   Future<void> deleteOldSyncedReports() async {
     final db = await database;
-    final weekAgo = DateTime.now().subtract(Duration(days: 7));
+    final weekAgo = DateTime.now().subtract(const Duration(days: 7));
 
     await db.delete(
       'offline_reports',

@@ -4,6 +4,8 @@ import 'create_report_screen.dart';
 import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -28,14 +30,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_titles[_selectedIndex]),
-        backgroundColor: Color(0xFF0066CC),
+        backgroundColor: const Color(0xFF0066CC),
         elevation: 0,
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) => setState(() => _selectedIndex = index),
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.article),
             label: 'Noticias',
@@ -49,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Perfil',
           ),
         ],
-        selectedItemColor: Color(0xFF0066CC),
+        selectedItemColor: const Color(0xFF0066CC),
         unselectedItemColor: Colors.grey,
       ),
     );

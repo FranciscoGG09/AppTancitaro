@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
 
 class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -21,9 +23,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Crear Cuenta'),
+        title: const Text('Crear Cuenta'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
         elevation: 0,
@@ -48,13 +50,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               key: _formKey,
               child: Column(
                 children: [
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   // Logo del gobierno municipal
                   Container(
                     width: 120,
                     height: 120,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle,
                       boxShadow: [
@@ -71,7 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Text(
                     'Registro de Ciudadano',
                     style: TextStyle(
@@ -80,7 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: Colors.blue[900],
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
                     'Gobierno Municipal de Tancítaro',
                     style: TextStyle(
@@ -88,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: Colors.grey[700],
                     ),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
 
                   // Campo de teléfono
                   Card(
@@ -101,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: TextFormField(
                         controller: _phoneController,
                         keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           labelText: 'Número de teléfono',
                           hintText: '10 dígitos',
                           prefixIcon:
@@ -123,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   // Campo de contraseña
                   Card(
@@ -138,7 +140,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         obscureText: _obscurePassword,
                         decoration: InputDecoration(
                           labelText: 'Contraseña',
-                          prefixIcon: Icon(Icons.lock, color: Colors.blue),
+                          prefixIcon:
+                              const Icon(Icons.lock, color: Colors.blue),
                           border: InputBorder.none,
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -165,7 +168,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   // Confirmar contraseña
                   Card(
@@ -180,8 +183,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         obscureText: _obscureConfirmPassword,
                         decoration: InputDecoration(
                           labelText: 'Confirmar Contraseña',
-                          prefixIcon:
-                              Icon(Icons.lock_outline, color: Colors.blue),
+                          prefixIcon: const Icon(Icons.lock_outline,
+                              color: Colors.blue),
                           border: InputBorder.none,
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -205,7 +208,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   // Términos y condiciones
                   Card(
@@ -234,21 +237,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 5),
+                              const SizedBox(width: 5),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       'Acepto los Términos y Condiciones',
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    SizedBox(height: 5),
+                                    const SizedBox(height: 5),
                                     GestureDetector(
                                       onTap: _showTermsDialog,
-                                      child: Text(
+                                      child: const Text(
                                         'Leer términos y condiciones',
                                         style: TextStyle(
                                           color: Colors.blue,
@@ -261,7 +264,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             'Al registrarte, aceptas el manejo de tus datos personales '
                             'de acuerdo con la Ley de Protección de Datos Personales.',
@@ -275,7 +278,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
 
                   // Botón de registro
                   Container(
@@ -295,7 +298,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         BoxShadow(
                           color: Colors.blue.withOpacity(0.3),
                           blurRadius: 10,
-                          offset: Offset(0, 5),
+                          offset: const Offset(0, 5),
                         ),
                       ],
                     ),
@@ -309,7 +312,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                       child: _isLoading
-                          ? SizedBox(
+                          ? const SizedBox(
                               width: 20,
                               height: 20,
                               child: CircularProgressIndicator(
@@ -317,7 +320,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 strokeWidth: 2,
                               ),
                             )
-                          : Row(
+                          : const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(Icons.person_add, color: Colors.white),
@@ -335,7 +338,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   // Enlace a login
                   Row(
@@ -359,11 +362,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
 
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
 
                   // Información adicional
                   Container(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: Colors.blue[50],
                       borderRadius: BorderRadius.circular(10),
@@ -374,9 +377,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.info_outline,
+                            const Icon(Icons.info_outline,
                                 size: 20, color: Colors.blue),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
                               'Importante:',
                               style: TextStyle(
@@ -386,7 +389,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(
                           '• Tu número de teléfono será tu usuario de acceso.\n'
                           '• Después del registro deberás completar tu perfil.\n'
@@ -415,7 +418,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(20),
         ),
@@ -426,7 +429,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         maxChildSize: 0.95,
         minChildSize: 0.5,
         builder: (context, scrollController) => Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               Container(
@@ -437,7 +440,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -450,12 +453,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.close),
+                    icon: const Icon(Icons.close),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
               ),
-              Divider(),
+              const Divider(),
               Expanded(
                 child: SingleChildScrollView(
                   controller: scrollController,
@@ -463,7 +466,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     future: _loadTermsText(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
 
                       return Padding(
@@ -471,7 +474,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: Text(
                           snapshot.data ??
                               'No se pudieron cargar los términos.',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15,
                             height: 1.6,
                           ),
@@ -504,7 +507,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     'ACEPTAR TÉRMINOS',
                     style: TextStyle(
                       fontSize: 16,
@@ -588,7 +591,7 @@ Fecha de última actualización: ${DateTime.now().day}/${DateTime.now().month}/$
       if (success) {
         // Mostrar mensaje de éxito
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Row(
               children: [
                 Icon(Icons.check_circle, color: Colors.white),
@@ -608,12 +611,12 @@ Fecha de última actualización: ${DateTime.now().day}/${DateTime.now().month}/$
         );
 
         // Esperar un momento y regresar al login
-        await Future.delayed(Duration(seconds: 1));
+        await Future.delayed(const Duration(seconds: 1));
         Navigator.pop(context);
       } else {
         // Mostrar error
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Row(
               children: [
                 Icon(Icons.error_outline, color: Colors.white),
@@ -635,7 +638,7 @@ Fecha de última actualización: ${DateTime.now().day}/${DateTime.now().month}/$
     } else {
       // Si el formulario no es válido
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
             'Por favor corrige los errores en el formulario.',
             style: TextStyle(fontSize: 16),
