@@ -34,12 +34,12 @@ class AuthService with ChangeNotifier {
     return token != null && token.isNotEmpty;
   }
 
-  Future<bool> login(String phone, String password) async {
+  Future<bool> login(String email, String password) async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      final success = await apiService.login(phone, password);
+      final success = await apiService.login(email, password);
 
       if (success) {
         await _loadCurrentUser();
@@ -55,12 +55,12 @@ class AuthService with ChangeNotifier {
     }
   }
 
-  Future<bool> register(String phone, String password) async {
+  Future<bool> register(String email, String password) async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      final success = await apiService.register(phone, password);
+      final success = await apiService.register(email, password);
 
       _isLoading = false;
       notifyListeners();

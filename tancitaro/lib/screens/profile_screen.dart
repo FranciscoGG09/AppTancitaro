@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:email_validator/email_validator.dart';
 import '../services/auth_service.dart';
+import 'report_status_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -348,6 +349,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Mis Reportes
+            Card(
+              elevation: 3,
+              child: ListTile(
+                leading: const Icon(Icons.history, color: Colors.blue),
+                title: const Text('Mis Reportes'),
+                subtitle: const Text('Ver el estado de mis reportes enviados'),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ReportStatusScreen(),
+                    ),
+                  );
+                },
               ),
             ),
             const SizedBox(height: 20),

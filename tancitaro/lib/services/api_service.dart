@@ -7,7 +7,7 @@ import '../models/news.dart';
 import '../models/user.dart';
 
 class ApiService {
-  static const String baseUrl = 'https://tu-backend.com/api';
+  static const String baseUrl = 'http://192.168.18.75:3000/api';
   final SharedPreferences prefs;
 
   ApiService(this.prefs);
@@ -17,13 +17,13 @@ class ApiService {
   }
 
   // Autenticación
-  Future<bool> login(String phone, String password) async {
+  Future<bool> login(String email, String password) async {
     try {
       final response = await http.post(
         Uri.parse('$baseUrl/auth/login'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({
-          'phone': phone,
+          'email': email,
           'password': password,
         }),
       );
@@ -41,13 +41,13 @@ class ApiService {
     }
   }
 
-  Future<bool> register(String phone, String password) async {
+  Future<bool> register(String email, String password) async {
     try {
       final response = await http.post(
         Uri.parse('$baseUrl/auth/register'),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({
-          'phone': phone,
+          'email': email,
           'password': password,
         }),
       );
@@ -175,17 +175,45 @@ class ApiService {
     }
   }
 
+  // Obtener reportes del usuario
+  Future<List<Report>> getUserReports() async {
+    final token = await _getToken();
+    final userId = prefs.getString('user_id');
+
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl/users/$userId/reports'),
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        // Mapping API response to Report objects
+        // Assuming API returns data compatible with Report.fromMap/fromJson
+        // We might need to adjust if API field names differ from local DB
+        return data.map((item) => Report.fromMap(item)).toList();
+      }
+      return [];
+    } catch (e) {
+      print('Get user reports error: $e');
+      return [];
+    }
+  }
+
   // Sincronización offline
   Future<bool> syncOfflineReports(List<Report> reports) async {
-    final token = await _getToken();
+    // Token is retrieved inside submitReport, so we don't strictly need it here
+    // unless we want to validate it before looping.
+    // final token = await _getToken(); // Removed unused variable
 
     try {
       for (var report in reports) {
         final image = File(report.imagePath);
-        final success = await submitReport(report, image);
-
-        if (!success) {
-          return false;
+        if (image.existsSync()) {
+          final success = await submitReport(report, image);
+          if (!success) return false;
         }
       }
       return true;

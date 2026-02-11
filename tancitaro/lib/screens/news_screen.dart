@@ -4,6 +4,8 @@ import '../models/news.dart';
 import '../services/api_service.dart';
 
 class NewsScreen extends StatefulWidget {
+  const NewsScreen({super.key});
+
   @override
   _NewsScreenState createState() => _NewsScreenState();
 }
@@ -41,19 +43,20 @@ class _NewsScreenState extends State<NewsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : _hasError
               ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.error_outline, size: 64, color: Colors.red),
-                      SizedBox(height: 20),
-                      Text('Error al cargar noticias'),
-                      SizedBox(height: 10),
+                      const Icon(Icons.error_outline,
+                          size: 64, color: Colors.red),
+                      const SizedBox(height: 20),
+                      const Text('Error al cargar noticias'),
+                      const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: _loadNews,
-                        child: Text('Reintentar'),
+                        child: const Text('Reintentar'),
                       ),
                     ],
                   ),
@@ -61,14 +64,14 @@ class _NewsScreenState extends State<NewsScreen> {
               : RefreshIndicator(
                   onRefresh: _loadNews,
                   child: _news.isEmpty
-                      ? Center(
+                      ? const Center(
                           child: Text(
                             'No hay noticias disponibles',
                             style: TextStyle(fontSize: 18),
                           ),
                         )
                       : ListView.builder(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           itemCount: _news.length,
                           itemBuilder: (context, index) {
                             return _buildNewsCard(_news[index]);
@@ -81,7 +84,7 @@ class _NewsScreenState extends State<NewsScreen> {
   Widget _buildNewsCard(News news) {
     return Card(
       elevation: 3,
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -89,23 +92,23 @@ class _NewsScreenState extends State<NewsScreen> {
           children: [
             Row(
               children: [
-                Icon(Icons.calendar_today, size: 16, color: Colors.grey),
-                SizedBox(width: 5),
+                const Icon(Icons.calendar_today, size: 16, color: Colors.grey),
+                const SizedBox(width: 5),
                 Text(
                   news.formattedDate,
-                  style: TextStyle(color: Colors.grey, fontSize: 14),
+                  style: const TextStyle(color: Colors.grey, fontSize: 14),
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               news.title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             if (news.imageUrl != null)
               Container(
                 height: 200,
@@ -117,16 +120,16 @@ class _NewsScreenState extends State<NewsScreen> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
               ),
             Text(
               news.content,
-              style: TextStyle(fontSize: 16, height: 1.5),
+              style: const TextStyle(fontSize: 16, height: 1.5),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             if (news.attachments.isNotEmpty) ...[
-              Divider(),
-              Text(
+              const Divider(),
+              const Text(
                 'Archivos adjuntos:',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),

@@ -23,7 +23,7 @@ void main() async {
         Provider(create: (_) => ApiService(prefs)),
         Provider(create: (_) => databaseService),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -45,9 +45,11 @@ class MyApp extends StatelessWidget {
         future: context.read<AuthService>().isLoggedIn(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return SplashScreen();
+            return const SplashScreen();
           }
-          return snapshot.data == true ? HomeScreen() : LoginScreen();
+          return snapshot.data == true
+              ? const HomeScreen()
+              : const LoginScreen();
         },
       ),
     );

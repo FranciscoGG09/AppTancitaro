@@ -11,7 +11,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _phoneController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   bool _acceptTerms = false;
@@ -92,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 30),
 
-                  // Campo de teléfono
+                  // Campo de correo electrónico
                   Card(
                     elevation: 2,
                     shape: RoundedRectangleBorder(
@@ -101,24 +101,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: TextFormField(
-                        controller: _phoneController,
-                        keyboardType: TextInputType.phone,
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
-                          labelText: 'Número de teléfono',
-                          hintText: '10 dígitos',
-                          prefixIcon:
-                              Icon(Icons.phone_android, color: Colors.blue),
+                          labelText: 'Correo Electrónico',
+                          hintText: 'ejemplo@correo.com',
+                          prefixIcon: Icon(Icons.email, color: Colors.blue),
                           border: InputBorder.none,
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Este campo es obligatorio';
                           }
-                          if (value.length != 10) {
-                            return 'El número debe tener 10 dígitos';
-                          }
-                          if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                            return 'Solo se permiten números';
+                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                              .hasMatch(value)) {
+                            return 'Ingresa un correo válido';
                           }
                           return null;
                         },
@@ -391,7 +388,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          '• Tu número de teléfono será tu usuario de acceso.\n'
+                          '• Tu correo electrónico será tu usuario de acceso.\n'
                           '• Después del registro deberás completar tu perfil.\n'
                           '• Solo podrás hacer reportes con perfil completo.\n'
                           '• Mantén tu contraseña segura y no la compartas.',
@@ -539,7 +536,7 @@ Al registrarte y utilizar la aplicación móvil del Gobierno Municipal de Tancí
 2. REGISTRO DE USUARIO
 2.1. Debes proporcionar información veraz y actualizada.
 2.2. Eres responsable de mantener la confidencialidad de tu contraseña.
-2.3. El número de teléfono será tu identificador único.
+2.3. El correo electrónico será tu identificador único.
 
 3. USO DE LA APLICACIÓN
 3.1. La aplicación está destinada para reportes ciudadanos legítimos.
@@ -582,7 +579,7 @@ Fecha de última actualización: ${DateTime.now().day}/${DateTime.now().month}/$
 
       final authService = context.read<AuthService>();
       final success = await authService.register(
-        _phoneController.text,
+        _emailController.text,
         _passwordController.text,
       );
 
@@ -651,7 +648,7 @@ Fecha de última actualización: ${DateTime.now().day}/${DateTime.now().month}/$
 
   @override
   void dispose() {
-    _phoneController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
