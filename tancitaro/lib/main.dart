@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: FutureBuilder<bool>(
-        future: context.read<AuthService>().isLoggedIn(),
+        future: Provider.of<AuthService>(context, listen: false).isLoggedIn(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const SplashScreen();

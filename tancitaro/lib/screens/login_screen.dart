@@ -181,23 +181,22 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() => _isLoading = true);
 
       final authService = context.read<AuthService>();
-      final success = await authService.login(
+      final error = await authService.login(
         _emailController.text,
         _passwordController.text,
       );
 
       setState(() => _isLoading = false);
 
-      if (success) {
+      if (error == null) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => HomeScreen()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content:
-                Text('Error al iniciar sesión. Verifica tus credenciales.'),
+          SnackBar(
+            content: Text(error),
             backgroundColor: Colors.red,
           ),
         );

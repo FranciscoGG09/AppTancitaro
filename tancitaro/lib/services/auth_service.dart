@@ -34,41 +34,49 @@ class AuthService with ChangeNotifier {
     return token != null && token.isNotEmpty;
   }
 
-  Future<bool> login(String email, String password) async {
+  Future<String?> login(String email, String password) async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      final success = await apiService.login(email, password);
+      final result = await apiService.login(email, password);
 
-      if (success) {
+      if (result['success']) {
         await _loadCurrentUser();
+        _isLoading = false;
+        notifyListeners();
+        return null; // Success
+      } else {
+        _isLoading = false;
+        notifyListeners();
+        return result['message'] ?? 'Error desconocido';
       }
-
-      _isLoading = false;
-      notifyListeners();
-      return success;
     } catch (e) {
       _isLoading = false;
       notifyListeners();
-      return false;
+      return 'Error inesperado: $e';
     }
   }
 
-  Future<bool> register(String email, String password) async {
+  Future<String?> register(String email, String password) async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      final success = await apiService.register(email, password);
+      final result = await apiService.register(email, password);
 
       _isLoading = false;
       notifyListeners();
-      return success;
+
+      if (result['success']) {
+        return null; // Success
+      } else {
+        return result['message'] ?? 'Error desconocido';
+      }
     } catch (e) {
       _isLoading = false;
       notifyListeners();
-      return false;
+      return 'Error inesperado: $e';
     }
   }
 

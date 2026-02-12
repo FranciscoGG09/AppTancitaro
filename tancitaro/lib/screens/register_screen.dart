@@ -578,14 +578,14 @@ Fecha de última actualización: ${DateTime.now().day}/${DateTime.now().month}/$
       setState(() => _isLoading = true);
 
       final authService = context.read<AuthService>();
-      final success = await authService.register(
+      final error = await authService.register(
         _emailController.text,
         _passwordController.text,
       );
 
       setState(() => _isLoading = false);
 
-      if (success) {
+      if (error == null) {
         // Mostrar mensaje de éxito
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -613,21 +613,21 @@ Fecha de última actualización: ${DateTime.now().day}/${DateTime.now().month}/$
       } else {
         // Mostrar error
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Row(
               children: [
-                Icon(Icons.error_outline, color: Colors.white),
-                SizedBox(width: 10),
+                const Icon(Icons.error_outline, color: Colors.white),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    'Error en el registro. El número ya está registrado o hay problemas de conexión.',
-                    style: TextStyle(fontSize: 16),
+                    error,
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ),
               ],
             ),
             backgroundColor: Colors.red,
-            duration: Duration(seconds: 4),
+            duration: const Duration(seconds: 4),
             behavior: SnackBarBehavior.floating,
           ),
         );

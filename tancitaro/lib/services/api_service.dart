@@ -7,7 +7,7 @@ import '../models/news.dart';
 import '../models/user.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.18.75:3000/api';
+  static const String baseUrl = 'http://192.168.18.75:3000';
   final SharedPreferences prefs;
 
   ApiService(this.prefs);
@@ -17,7 +17,7 @@ class ApiService {
   }
 
   // Autenticación
-  Future<bool> login(String email, String password) async {
+  Future<Map<String, dynamic>> login(String email, String password) async {
     try {
       final response = await http.post(
         Uri.parse('$baseUrl/auth/login'),
@@ -32,16 +32,21 @@ class ApiService {
         final data = json.decode(response.body);
         await prefs.setString('auth_token', data['token']);
         await prefs.setString('user_id', data['user']['id']);
-        return true;
+        return {'success': true};
       }
-      return false;
+
+      final body = json.decode(response.body);
+      return {
+        'success': false,
+        'message':
+            body['message'] ?? 'Error ${response.statusCode}: ${response.body}'
+      };
     } catch (e) {
-      print('Login error: $e');
-      return false;
+      return {'success': false, 'message': 'Error de conexión: $e'};
     }
   }
 
-  Future<bool> register(String email, String password) async {
+  Future<Map<String, dynamic>> register(String email, String password) async {
     try {
       final response = await http.post(
         Uri.parse('$baseUrl/auth/register'),
@@ -52,10 +57,18 @@ class ApiService {
         }),
       );
 
-      return response.statusCode == 201;
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return {'success': true};
+      }
+
+      final body = json.decode(response.body);
+      return {
+        'success': false,
+        'message':
+            body['message'] ?? 'Error ${response.statusCode}: ${response.body}'
+      };
     } catch (e) {
-      print('Register error: $e');
-      return false;
+      return {'success': false, 'message': 'Error de conexión: $e'};
     }
   }
 
